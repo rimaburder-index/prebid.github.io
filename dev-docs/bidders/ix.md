@@ -63,7 +63,7 @@ var adUnits = [{
 |---|---|
 | `banner` | Fully supported for all IX approved sizes |
 | `video`  | Fully supported for all IX approved sizes |
-| `native` | Supported |
+| `native` | Not supported |
 
 ### Supported Media Types (Prebid Server)
 
