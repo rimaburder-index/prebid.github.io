@@ -133,11 +133,54 @@ In this configuration Prebid.js calls Index directly from the browser using our 
 
 In this configuration, Prebid.js makes a call to Prebid Server and then Prebid Server uses our server-side adapter to call Index. Complete the following steps to complete the Index-specific configuration:
 
-1. In your PrebidServer adapter configuration Prebid.js, you must enable the Index adapter as follows:
-```javascript
-    adapters.ix.enabled=true 
-    adapters.ix.endpoint=http://<Your Prebid Server Host's URL>
-```
+1. In your Prebid Server Index Exchange adapter configuration, make the following changes:
+ * If you are using PBS Go, edit the following information in the static/bidder-info/ix.yaml file:
+      1. Enable the adapter by removing the following key:
+         ```javascript
+             disabled: true
+         ```
+      2. Add the endpoint key:
+         ```javascript
+             endpoint: "https://<Index Provided Endpoint URL>"
+         ```
+      3. Update the redirect user match URL key:
+         ```javascript
+             userSync:
+                redirect:
+                  url: "https://<Index Provided Redirect User Match URL>"
+         ```
+      4. Update the iframe user match URL Key:
+     ```javascript
+         userSync:
+            iframe:
+              url: "https://<Index Provided Iframe User Match URL>
+      ```
+ * If you are using PBS Java, edit the following information in the src/main/resources/bidder-config/ix.yaml file:
+      1. Update the endpoint key:
+         ```javascript
+             adapters:
+               ix:
+                 endpoint: "https://<Index Provided Endpoint URL>"
+         ```
+      2. Update the redirect user match URL key:
+
+         ```javascript
+             adapters:
+               ix:
+                 usersync:
+                   redirect:
+                     url: "https://<Index Provided Redirect User Match URL>"
+         ```
+      3. Add the iframe user match URL key:
+
+         ```javascript
+             adapters:
+              ix:
+               usersync:
+                 iframe:
+                   url: "https://<Index Provided Iframe User Match URL>"
+         ```
+  
 2. In the `[pbjs.setConfig()]` function, within the `s2sConfig` property, add `ix` to the `bidders` attribute. 
 3. Define the Index-specific parameters at the bidder level. For Index's bidder-specific parameters, see the [Bid request parameters](#bid-request-parameters) section below.
 4. Define your ad units in the `adUnit` object. For more information about this object, see Prebid's [Ad Unit Reference](https://docs.prebid.org/dev-docs/adunit-reference.html) documentation. 
